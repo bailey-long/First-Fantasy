@@ -17,8 +17,7 @@ namespace First_Fantasy
     {
         public GraphicsDeviceManager graphics;
 		public Desktop desktop;
-
-		private Microsoft.Xna.Framework.Graphics.SpriteBatch _spriteBatch;
+        GUI_party_creator partyInit;
 
 		public Game1()
         {
@@ -31,42 +30,44 @@ namespace First_Fantasy
         {
             // TODO: Add your initialization logic here
             base.Initialize();
-        }
+		}
 
-        //TODO: Move into GUI_party_creator.cs class
         protected override void LoadContent()
         {
 
-		    // Draw the GUI
-		    MyraEnvironment.Game = this;
-			// Add to the desktop
-			desktop = new Desktop();
+			partyInit = new GUI_party_creator
+			{
+				partyGraphicsManager = graphics,
+				partyDesktop = desktop
+			};
+            
+            // Add to the desktop
+            MyraEnvironment.Game = this;
 
-			GUI_party_creator partyInit = new();
-            partyInit.PartyInitialize(desktop);
+			partyInit.LoadContent();
+
 		}
 
         protected override void Update(GameTime gameTime)
         {
 
             // TODO: Add your update logic here
+
             Key.GetState();
 
-            //Shows party in debug TODO: Make into a gui menu.
-            /*if (Key.HasBeenPressed(Keys.Escape))
+			//Shows party in debug TODO: Make into a gui menu.
+			/*if (Key.HasBeenPressed(Keys.Escape))
             {
                 party.ShowMembers(party.Members);
             };*/
-
-            base.Update(gameTime);
+			base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-
             // Draw the Myra GUI
-			GraphicsDevice.Clear(Color.CornflowerBlue);
-			desktop.Render();
+            MyraEnvironment.GraphicsDevice.Clear(Color.CornflowerBlue);
+			partyInit.partyDesktop.Render();
 
             base.Draw(gameTime);
         }

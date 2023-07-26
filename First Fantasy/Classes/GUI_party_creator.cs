@@ -14,19 +14,16 @@ namespace First_Fantasy.Classes
 
 	internal class GUI_party_creator : Game1
 	{
-		private GraphicsDeviceManager _graphicsDeviceManager;
+		public GraphicsDeviceManager partyGraphicsManager { get; set; }
+		public Desktop partyDesktop { get; set; }
 
 		//Initialize the party
 		private readonly Party_Factory _party_factory = new Party_Factory();
 		public Party party = new();
 
-		public GUI_party_creator() {
-			_graphicsDeviceManager = graphics;
-		}
-
-		public void PartyInitialize(Desktop desktop)
+		public void LoadContent()
 		{
-
+			partyDesktop = new Desktop();
 			//Create the members in the factory and then assemble it into the party list of members
 			var Members = _party_factory.CreateParty();
 			party.AssembleParty(Members);
@@ -249,7 +246,8 @@ namespace First_Fantasy.Classes
 
 			grid.Widgets.Add(finishButton);
 
-			desktop.Root = grid;
+			partyDesktop.Root = grid;
+
 		}
 	}
 }
