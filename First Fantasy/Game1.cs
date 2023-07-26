@@ -35,6 +35,7 @@ namespace First_Fantasy
             base.Initialize();
         }
 
+        //TODO: Move into GUI_party_creator.cs class
         protected override void LoadContent()
         {
             _spriteBatch = new Microsoft.Xna.Framework.Graphics.SpriteBatch(GraphicsDevice);
