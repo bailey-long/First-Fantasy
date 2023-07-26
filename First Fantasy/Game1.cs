@@ -9,6 +9,7 @@ using SharpDX.Direct2D1;
 using System;
 using System.Diagnostics;
 using System.Reflection;
+using System.Xml;
 
 namespace First_Fantasy
 {
@@ -143,12 +144,13 @@ namespace First_Fantasy
                             GridColumn = 0,
                             GridRow = 1
                         };
-                        charClass.Items.Add(new ListItem("Astral Weaver"));
-                        charClass.Items.Add(new ListItem("Verdant Sentinal"));
-                        charClass.Items.Add(new ListItem("Steam Enforcer"));
-                        charClass.Items.Add(new ListItem("Echoblade"));
+                        charClass.Items.Add(new ListItem("Astral Weaver")); //Astral wizard
+                        charClass.Items.Add(new ListItem("Verdant Sentinal")); //Druid
+                        charClass.Items.Add(new ListItem("Steam Enforcer")); //Engineer/Robot
+                        charClass.Items.Add(new ListItem("Echoblade")); //Eldritch knight
+					    charClass.Items.Add(new ListItem("Charlatan")); //Trickster/Rogue
 
-                        var classLabel = new Label
+					var classLabel = new Label
                         {
                             GridColumn = 0,
                             GridRow = 2,
@@ -196,9 +198,44 @@ namespace First_Fantasy
                     }
                     else
                     {
-					    var messageBox = Dialog.CreateMessageBox(displayed.Name, $" Level: {displayed.Level}\n Race: {displayed.Race}\n Class: {displayed.Class}");
-                        messageBox.ButtonCancel.Text = "Remove";
-                        messageBox.ButtonCancel.Click += delegate (object sender, EventArgs e)
+					    var raceLabel = new Label
+					    {
+						    GridColumn = 0,
+						    GridRow = 0,
+						    Text = $"Race: {displayed.Race}"
+					    };
+
+					    var levelLabel = new Label
+					    {
+						    GridColumn = 0,
+						    GridRow = 1,
+						    Text = $"Level: {displayed.Level.ToString()}"
+					    };
+
+					    var classLabel = new Label
+					    {
+						    GridColumn = 0,
+						    GridRow = 2,
+						    Text = $"Class: {displayed.Class}"
+					    };
+
+					    //Create window content
+					    var stackPanel = new VerticalStackPanel
+					    {
+						    Spacing = 8
+					    };
+					    stackPanel.Widgets.Add(raceLabel);
+					    stackPanel.Widgets.Add(levelLabel);
+					    stackPanel.Widgets.Add(classLabel);
+
+					    Dialog charViewer = new Dialog
+					    {
+						    Title = displayed.Name,
+					    };
+                        charViewer.Content = stackPanel;
+
+					    charViewer.ButtonCancel.Text = "Remove";
+                        charViewer.ButtonCancel.Click += delegate (object sender, EventArgs e)
                         {
 							partyList.Items.Clear();
 							_party.RemoveMember(displayed);
@@ -209,7 +246,7 @@ namespace First_Fantasy
 							partyList.Items.Add(new ListItem($" {Members[3].Name}", Color.White));
 							grid.Widgets.Add(partyList);
 						};
-                        messageBox.ShowModal(_desktop);
+                        charViewer.ShowModal(_desktop);
                     }
             };
 

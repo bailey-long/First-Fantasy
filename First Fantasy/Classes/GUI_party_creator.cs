@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework;
 namespace First_Fantasy.Classes
 {
 
-	internal class GUI_party_creator
+	internal class GUI_party_creator : Game1
 	{
 
 	}
