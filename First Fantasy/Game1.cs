@@ -197,6 +197,18 @@ namespace First_Fantasy
                     else
                     {
 					    var messageBox = Dialog.CreateMessageBox(displayed.Name, $" Level: {displayed.Level}\n Race: {displayed.Race}\n Class: {displayed.Class}");
+                        messageBox.ButtonCancel.Text = "Remove";
+                        messageBox.ButtonCancel.Click += delegate (object sender, EventArgs e)
+                        {
+							partyList.Items.Clear();
+							_party.RemoveMember(displayed);
+
+							partyList.Items.Add(new ListItem($" {Members[0].Name}", Color.White));
+							partyList.Items.Add(new ListItem($" {Members[1].Name}", Color.White));
+							partyList.Items.Add(new ListItem($" {Members[2].Name}", Color.White));
+							partyList.Items.Add(new ListItem($" {Members[3].Name}", Color.White));
+							grid.Widgets.Add(partyList);
+						};
                         messageBox.ShowModal(_desktop);
                     }
             };
