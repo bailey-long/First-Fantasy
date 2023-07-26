@@ -37,7 +37,12 @@ namespace First_Fantasy.Classes.Charcter_Classes
 
         public void RemoveMember(Member member)
         {
-            Members.Remove(member);
+
+            member.Name = "EMPTY";
+            member.Level = 1;
+            member.Race = "EMPTY";
+            member.Class = "EMPTY";
+
         }
     }
 }
