@@ -19,8 +19,8 @@ namespace First_Fantasy
         private Desktop _desktop;
 
         //Initialize the party
-        private Party_Factory party_factory = new Party_Factory();
-        private Party party = new Party();
+        private Party_Factory _party_factory = new Party_Factory();
+        private Party _party = new Party();
 
         public Game1()
         {
@@ -41,9 +41,9 @@ namespace First_Fantasy
             _spriteBatch = new Microsoft.Xna.Framework.Graphics.SpriteBatch(GraphicsDevice);
 
             //Create the members in the factory and then assemble it into the party list of members
-            var Members = party_factory.CreateParty();
-            party.AssembleParty(Members);
-            Members = party.Members;
+            var Members = _party_factory.CreateParty();
+            _party.AssembleParty(Members);
+            Members = _party.Members;
 
             // Draw the GUI
             MyraEnvironment.Game = this;
@@ -182,7 +182,7 @@ namespace First_Fantasy
 							displayed.Race = charRace.SelectedItem.ToString();
 							displayed.Class = charClass.SelectedItem.ToString();
                             partyList.Items.Clear();
-							party.AddMember(displayed, memberShown);
+							_party.AddMember(displayed, memberShown);
 
 							partyList.Items.Add(new ListItem($" {Members[0].Name}", Color.White));
 							partyList.Items.Add(new ListItem($" {Members[1].Name}", Color.White));
@@ -232,7 +232,7 @@ namespace First_Fantasy
             //Shows party in debug TODO: Make into a gui menu.
             if (Key.HasBeenPressed(Keys.Escape))
             {
-                party.ShowMembers(party.Members);
+                _party.ShowMembers(_party.Members);
             };
 
             base.Update(gameTime);
