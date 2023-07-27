@@ -253,6 +253,8 @@ namespace First_Fantasy.Classes
 					charViewer.ShowModal(desktop);
 				}
 			};
+
+
 		}
 	}
 }

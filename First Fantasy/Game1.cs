@@ -16,7 +16,6 @@ namespace First_Fantasy
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-
 		}
 
         protected override void Initialize()
@@ -39,14 +38,14 @@ namespace First_Fantasy
 			desktop = new Desktop();
 
 			partyInit.LoadContent(desktop);
-			desktop.Root = partyInit.grid;
 			partyInit.SubscribeEvents();
+
+			desktop.Root = partyInit.grid;
 
 		}
 
         protected override void Update(GameTime gameTime)
         {
-
             // TODO: Add your update logic here
             Key.GetState();
 
