@@ -15,21 +15,25 @@ namespace First_Fantasy.Classes
 	internal class GUI_party_creator : Game1
 	{
 		public GraphicsDeviceManager partyGraphicsManager { get; set; }
-		public Desktop partyDesktop { get; set; }
+
+		//GUI
+		public Grid grid;
+		private TextButton editButton;
+		private ComboBox partyList;
+		private List<Member> Members;
 
 		//Initialize the party
 		private readonly Party_Factory _party_factory = new Party_Factory();
 		public Party party = new();
 
-		public void LoadContent()
+		public void LoadContent(Desktop desktop)
 		{
-			partyDesktop = new Desktop();
 			//Create the members in the factory and then assemble it into the party list of members
-			var Members = _party_factory.CreateParty();
+			Members = _party_factory.CreateParty(); 
 			party.AssembleParty(Members);
 			Members = party.Members;
 
-			var grid = new Grid
+			grid = new Grid
 			{
 				RowSpacing = 20,
 				ColumnSpacing = 8
@@ -49,7 +53,7 @@ namespace First_Fantasy.Classes
 			grid.Widgets.Add(helloWorld);
 
 			// ComboBox
-			var partyList = new ComboBox
+			partyList = new ComboBox
 			{
 				GridColumn = 1,
 				GridRow = 0
@@ -61,13 +65,33 @@ namespace First_Fantasy.Classes
 			grid.Widgets.Add(partyList);
 
 			// Button
-			var editButton = new TextButton
+			editButton = new TextButton
 			{
 				GridColumn = 2,
 				GridRow = 0,
 				Text = "Edit/View Character "
 			};
 
+			grid.Widgets.Add(editButton);
+
+			var finishButton = new TextButton
+			{
+				GridColumn = 0,
+				GridRow = 2,
+				Text = "Venture Forth "
+			};
+
+			finishButton.Click += (s, a) =>
+			{
+				grid.Widgets.Clear();
+			};
+
+			grid.Widgets.Add(finishButton);
+
+		}
+		
+		public void SubscribeEvents()
+		{
 			editButton.Click += (s, a) =>
 			{
 				int memberShown = partyList.SelectedIndex.GetValueOrDefault();
@@ -229,25 +253,6 @@ namespace First_Fantasy.Classes
 					charViewer.ShowModal(desktop);
 				}
 			};
-
-			grid.Widgets.Add(editButton);
-
-			var finishButton = new TextButton
-			{
-				GridColumn = 0,
-				GridRow = 2,
-				Text = "Venture Forth "
-			};
-
-			finishButton.Click += (s, a) =>
-			{
-				grid.Widgets.Clear();
-			};
-
-			grid.Widgets.Add(finishButton);
-
-			partyDesktop.Root = grid;
-
 		}
 	}
 }

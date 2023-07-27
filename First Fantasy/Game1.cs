@@ -1,15 +1,7 @@
 ﻿using First_Fantasy.Classes;
-using First_Fantasy.Classes.Charcter_Classes;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Myra;
 using Myra.Graphics2D.UI;
-using SharpDX.Direct2D1;
-using System;
-using System.Diagnostics;
-using System.Reflection;
-using System.Xml;
 
 namespace First_Fantasy
 {
@@ -24,6 +16,7 @@ namespace First_Fantasy
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
 		}
 
         protected override void Initialize()
@@ -38,13 +31,16 @@ namespace First_Fantasy
 			partyInit = new GUI_party_creator
 			{
 				partyGraphicsManager = graphics,
-				partyDesktop = desktop
+				//partyDesktop = desktop
 			};
             
             // Add to the desktop
             MyraEnvironment.Game = this;
+			desktop = new Desktop();
 
-			partyInit.LoadContent();
+			partyInit.LoadContent(desktop);
+			desktop.Root = partyInit.grid;
+			partyInit.SubscribeEvents();
 
 		}
 
@@ -52,14 +48,8 @@ namespace First_Fantasy
         {
 
             // TODO: Add your update logic here
-
             Key.GetState();
 
-			//Shows party in debug TODO: Make into a gui menu.
-			/*if (Key.HasBeenPressed(Keys.Escape))
-            {
-                party.ShowMembers(party.Members);
-            };*/
 			base.Update(gameTime);
         }
 
@@ -67,7 +57,7 @@ namespace First_Fantasy
         {
             // Draw the Myra GUI
             MyraEnvironment.GraphicsDevice.Clear(Color.CornflowerBlue);
-			partyInit.partyDesktop.Render();
+			desktop.Render();
 
             base.Draw(gameTime);
         }
