@@ -1,300 +1,65 @@
 ﻿using First_Fantasy.Classes;
-using First_Fantasy.Classes.Charcter_Classes;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Myra;
 using Myra.Graphics2D.UI;
-using SharpDX.Direct2D1;
 using System;
 using System.Diagnostics;
-using System.Reflection;
-using System.Xml;
 
 namespace First_Fantasy
 {
     public class Game1 : Game
     {
-        private GraphicsDeviceManager _graphics;
-        private Microsoft.Xna.Framework.Graphics.SpriteBatch _spriteBatch;
-        private Desktop _desktop;
+        public GraphicsDeviceManager graphics;
+		public Desktop desktop;
+        GUI_party_creator partyInit;
 
-        //Initialize the party
-        private Party_Factory _party_factory = new Party_Factory();
-        private Party _party = new Party();
-
-        public Game1()
+		public Game1()
         {
-            _graphics = new GraphicsDeviceManager(this);
+			graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-        }
+		}
 
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
             base.Initialize();
-        }
+		}
 
-        //TODO: Move into GUI_party_creator.cs class
         protected override void LoadContent()
         {
-            _spriteBatch = new Microsoft.Xna.Framework.Graphics.SpriteBatch(GraphicsDevice);
+            base.LoadContent();
 
-            //Create the members in the factory and then assemble it into the party list of members
-            var Members = _party_factory.CreateParty();
-            _party.AssembleParty(Members);
-            Members = _party.Members;
+			MyraEnvironment.Game = this;
 
-            // Draw the GUI
-            MyraEnvironment.Game = this;
+			// Setup the desktop
+			desktop = new Desktop();
 
-            var grid = new Grid
-            {
-                RowSpacing = 20,
-                ColumnSpacing = 8
-            };
+            //Setup party creator UI
+			partyInit = new GUI_party_creator();
+			partyInit.desktop = desktop;
 
-            grid.ColumnsProportions.Add(new Proportion(ProportionType.Auto));
-            grid.ColumnsProportions.Add(new Proportion(ProportionType.Auto));
-            grid.RowsProportions.Add(new Proportion(ProportionType.Auto));
-            grid.RowsProportions.Add(new Proportion(ProportionType.Auto));
+            // Add party creator UI to the screen
+			desktop.Widgets.Add(partyInit.mainGrid);
 
-            var helloWorld = new Label
-            {
-                TextColor = Color.Black,
-                Id = "label",
-                Text = "Create a party: "
-            };
-            grid.Widgets.Add(helloWorld);
-
-            // ComboBox
-            var partyList = new ComboBox
-            {
-                GridColumn = 1,
-                GridRow = 0
-            };
-			partyList.Items.Add(new ListItem($" {Members[0].Name}", Color.White));
-			partyList.Items.Add(new ListItem($" {Members[1].Name}", Color.White));
-            partyList.Items.Add(new ListItem($" {Members[2].Name}", Color.White));
-            partyList.Items.Add(new ListItem($" {Members[3].Name}", Color.White));
-            grid.Widgets.Add(partyList);
-
-            // Button
-            var editButton = new TextButton
-            {
-                GridColumn = 2,
-                GridRow = 0,
-                Text = "Edit/View Character "
-            };
-
-            editButton.Click += (s, a) =>
-            {
-                int memberShown = partyList.SelectedIndex.GetValueOrDefault();
-                var displayed = Members[memberShown];
-
-                    if (displayed.Name == "EMPTY" || displayed.Class == "EMPTY")
-                    {
-                        //Fields for charatcer creator
-                        //Name Stuff
-                        var charName = new TextBox
-                        {
-                            GridColumn = 0,
-                            GridRow = 1,
-                            Text = "",
-                        };
-
-                        var nameLabel = new Label
-                        {
-                            GridColumn = 0,
-                            GridRow = 1,
-                            Text = "Name: ",
-                        };
-
-                        var randomize = new TextButton
-                        {
-							GridColumn = 0,
-							GridRow = 1,
-							Text = "Random Name",
-						};
-
-                        //Race stuff
-                        var charRace = new ComboBox
-                        {
-                            GridColumn = 0,
-                            GridRow = 1,
-                        };
-                        charRace.Items.Add(new ListItem("Human"));
-                        charRace.Items.Add(new ListItem("Dwarf"));
-                        charRace.Items.Add(new ListItem("Elf"));
-                        charRace.Items.Add(new ListItem("Clockborn"));
-                        charRace.Items.Add(new ListItem("Emberforged"));
-                        charRace.Items.Add(new ListItem("Gloomkin"));
-
-                        var raceLabel = new Label
-                        {
-                            GridColumn = 0,
-                            GridRow = 3,
-                            Text = "Race: "
-                        };
-
-                        //Class stuff
-                        var charClass = new ComboBox
-                        {
-                            GridColumn = 0,
-                            GridRow = 1
-                        };
-                        charClass.Items.Add(new ListItem("Astral Weaver")); //Astral wizard
-                        charClass.Items.Add(new ListItem("Verdant Sentinal")); //Druid
-                        charClass.Items.Add(new ListItem("Steam Enforcer")); //Engineer/Robot
-                        charClass.Items.Add(new ListItem("Echoblade")); //Eldritch knight
-					    charClass.Items.Add(new ListItem("Charlatan")); //Trickster/Rogue
-
-					var classLabel = new Label
-                        {
-                            GridColumn = 0,
-                            GridRow = 2,
-                            Text = "Class: "
-                        };
-
-                        //Create window
-                        Dialog charCreator = new Dialog
-                        {
-                            Title = "Create a character",
-                        };
-                        //Create window content
-                        var stackPanel = new VerticalStackPanel
-                        {
-                            Spacing = 8
-                        };
-                        stackPanel.Widgets.Add(nameLabel);
-                        stackPanel.Widgets.Add(charName);
-                        stackPanel.Widgets.Add(raceLabel);
-                        stackPanel.Widgets.Add(charRace);
-                        stackPanel.Widgets.Add(classLabel);
-                        stackPanel.Widgets.Add(charClass);
-                        
-                        //Populate window
-                        charCreator.Content = stackPanel;
-
-					    charCreator.ButtonOk.Click += delegate (object sender, EventArgs e)
-					    {
-							//Setup party member based on inputs
-							displayed.Name = charName.Text;
-							displayed.Race = charRace.SelectedItem.ToString();
-							displayed.Class = charClass.SelectedItem.ToString();
-                            partyList.Items.Clear();
-							_party.AddMember(displayed, memberShown);
-
-							partyList.Items.Add(new ListItem($" {Members[0].Name}", Color.White));
-							partyList.Items.Add(new ListItem($" {Members[1].Name}", Color.White));
-							partyList.Items.Add(new ListItem($" {Members[2].Name}", Color.White));
-							partyList.Items.Add(new ListItem($" {Members[3].Name}", Color.White));
-							grid.Widgets.Add(partyList);
-
-						};
-
-					    charCreator.ShowModal(_desktop);
-                    }
-                    else
-                    {
-					    var raceLabel = new Label
-					    {
-						    GridColumn = 0,
-						    GridRow = 0,
-						    Text = $"Race: {displayed.Race}"
-					    };
-
-					    var levelLabel = new Label
-					    {
-						    GridColumn = 0,
-						    GridRow = 1,
-						    Text = $"Level: {displayed.Level.ToString()}"
-					    };
-
-					    var classLabel = new Label
-					    {
-						    GridColumn = 0,
-						    GridRow = 2,
-						    Text = $"Class: {displayed.Class}"
-					    };
-
-					    //Create window content
-					    var stackPanel = new VerticalStackPanel
-					    {
-						    Spacing = 8
-					    };
-					    stackPanel.Widgets.Add(raceLabel);
-					    stackPanel.Widgets.Add(levelLabel);
-					    stackPanel.Widgets.Add(classLabel);
-
-					    Dialog charViewer = new Dialog
-					    {
-						    Title = displayed.Name,
-					    };
-                        charViewer.Content = stackPanel;
-
-					    charViewer.ButtonCancel.Text = "Remove";
-                        charViewer.ButtonCancel.Click += delegate (object sender, EventArgs e)
-                        {
-							partyList.Items.Clear();
-							_party.RemoveMember(displayed);
-
-							partyList.Items.Add(new ListItem($" {Members[0].Name}", Color.White));
-							partyList.Items.Add(new ListItem($" {Members[1].Name}", Color.White));
-							partyList.Items.Add(new ListItem($" {Members[2].Name}", Color.White));
-							partyList.Items.Add(new ListItem($" {Members[3].Name}", Color.White));
-							grid.Widgets.Add(partyList);
-						};
-                        charViewer.ShowModal(_desktop);
-                    }
-            };
-
-            grid.Widgets.Add(editButton);
-
-            var finishButton = new TextButton
-            {
-                GridColumn = 0,
-                GridRow = 2,
-                Text = "Venture Forth "
-            };
-
-            finishButton.Click += (s, a) =>
-            {
-                grid.Widgets.Clear();
-            };
-
-            grid.Widgets.Add(finishButton);
-
-
-            // Add it to the desktop
-            _desktop = new Desktop();
-            _desktop.Root = grid;
-        }
+		}
 
         protected override void Update(GameTime gameTime)
         {
-
             // TODO: Add your update logic here
             Key.GetState();
 
-            //Shows party in debug TODO: Make into a gui menu.
-            if (Key.HasBeenPressed(Keys.Escape))
-            {
-                _party.ShowMembers(_party.Members);
-            };
-
-            base.Update(gameTime);
+			base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
+			// Draw the Myra GUI
+			GraphicsDevice.Clear(Color.CornflowerBlue);
+			desktop.Render();
 
-            // Draw the Myra GUI
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-            _desktop.Render();
 
-            base.Draw(gameTime);
+			base.Draw(gameTime);
         }
     }
 }
