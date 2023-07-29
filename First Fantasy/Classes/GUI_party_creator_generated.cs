@@ -1,6 +1,7 @@
 ﻿using Myra.Graphics2D.UI;
 using System;
 using Microsoft.Xna.Framework;
+using System.Diagnostics;
 
 namespace First_Fantasy.Classes
 {
@@ -9,11 +10,12 @@ namespace First_Fantasy.Classes
 		public GUI_party_creator()
 		{
 			UI_LoadContent();
-			finishButton.Click += (s, a) =>
+			finishButton.Click += (object sender, EventArgs e) =>
 			{
+				Debug.WriteLine("Clicked");
 				Exit();
 			};
-			editButton.Click += (s, a) =>
+			editButton.Click += (object sender, EventArgs e) =>
 			{
 				int memberShown = partyList.SelectedIndex.GetValueOrDefault();
 				var displayed = Members[memberShown];

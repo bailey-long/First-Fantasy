@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Myra;
 using Myra.Graphics2D.UI;
 using System;
+using System.Diagnostics;
 
 namespace First_Fantasy
 {
@@ -30,13 +31,12 @@ namespace First_Fantasy
         {
 
 			MyraEnvironment.Game = this;
-
-            partyInit = new GUI_party_creator();
-
+			partyInit = new GUI_party_creator();
 
 			// Add to the desktop
 			desktop = new Desktop();
 			desktop.Root = partyInit.grid;
+            Debug.WriteLine(partyInit.grid.ChildrenCount);
 
 		}
 
