@@ -15,17 +15,20 @@ namespace First_Fantasy.Classes
 			finishButton.Click += (object sender, EventArgs e) =>
 			{
 				Debug.WriteLine("Clicked");
+
+				var messageBox = Dialog.CreateMessageBox("Finished?", "Are you ready to enter the game?");
+				messageBox.ShowModal(desktop);
+
+				messageBox.ButtonOk.Click += (object sender, EventArgs e) =>
+				{
+					desktop.Widgets.Remove(mainGrid);
+				};
 			};
 			editButton.Click += (object sender, EventArgs e) =>
 			{
 
 				int memberShown = partyList.SelectedIndex.GetValueOrDefault();
 				var displayed = Members[memberShown];
-
-				var creatorGrid = new Grid
-				{
-
-				};
 
 				if (displayed.Name == "EMPTY" || displayed.Class == "EMPTY")
 				{
