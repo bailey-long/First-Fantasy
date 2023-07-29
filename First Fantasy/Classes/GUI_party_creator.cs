@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace First_Fantasy.Classes
 {
-	partial class GUI_party_creator
+	 partial class GUI_party_creator : Grid
 	{
 		//Initialize the party
 		private readonly Party_Factory _party_factory = new();
@@ -16,25 +16,25 @@ namespace First_Fantasy.Classes
 		public TextButton finishButton;
 		public TextButton editButton;
 		public ComboBox partyList;
-		public Grid grid;
+		public Grid mainGrid;
 
 		private void UI_LoadContent()
 		{
 			//Create the members in the factory and then assemble it into the party list of members
-			var Members = _party_factory.CreateParty();
+			Members = _party_factory.CreateParty();
 			party.AssembleParty(Members);
 			Members = party.Members;
 
-			grid = new Grid
+			mainGrid = new Grid
 			{
 				RowSpacing = 20,
 				ColumnSpacing = 8
 			};
 
-			grid.ColumnsProportions.Add(new Proportion(ProportionType.Auto));
-			grid.ColumnsProportions.Add(new Proportion(ProportionType.Auto));
-			grid.RowsProportions.Add(new Proportion(ProportionType.Auto));
-			grid.RowsProportions.Add(new Proportion(ProportionType.Auto));
+			mainGrid.ColumnsProportions.Add(new Proportion(ProportionType.Auto));
+			mainGrid.ColumnsProportions.Add(new Proportion(ProportionType.Auto));
+			mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
+			mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
 
 			var helloWorld = new Label
 			{
@@ -42,7 +42,7 @@ namespace First_Fantasy.Classes
 				Id = "label",
 				Text = "Create a party: "
 			};
-			grid.Widgets.Add(helloWorld);
+			mainGrid.Widgets.Add(helloWorld);
 
 			// ComboBox
 			partyList = new ComboBox
@@ -54,7 +54,7 @@ namespace First_Fantasy.Classes
 			partyList.Items.Add(new ListItem($" {Members[1].Name}", Color.White));
 			partyList.Items.Add(new ListItem($" {Members[2].Name}", Color.White));
 			partyList.Items.Add(new ListItem($" {Members[3].Name}", Color.White));
-			grid.Widgets.Add(partyList);
+			mainGrid.Widgets.Add(partyList);
 
 			// Button
 			editButton = new TextButton
@@ -64,7 +64,7 @@ namespace First_Fantasy.Classes
 				Text = "Edit/View Character "
 			};
 
-			grid.Widgets.Add(editButton);
+			mainGrid.Widgets.Add(editButton);
 
 			finishButton = new TextButton
 			{
@@ -73,12 +73,7 @@ namespace First_Fantasy.Classes
 				Text = "Venture Forth "
 			};
 
-			finishButton.Click += (s, a) =>
-			{
-				grid.Widgets.Clear();
-			};
-
-			grid.Widgets.Add(finishButton);
+			mainGrid.Widgets.Add(finishButton);
 
 		}
 	}

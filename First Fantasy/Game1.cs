@@ -24,19 +24,23 @@ namespace First_Fantasy
         {
             // TODO: Add your initialization logic here
             base.Initialize();
-
 		}
 
         protected override void LoadContent()
         {
+            base.LoadContent();
 
 			MyraEnvironment.Game = this;
-			partyInit = new GUI_party_creator();
 
-			// Add to the desktop
+			// Setup the desktop
 			desktop = new Desktop();
-			desktop.Root = partyInit.grid;
-            Debug.WriteLine(partyInit.grid.ChildrenCount);
+
+            //Setup party creator UI
+			partyInit = new GUI_party_creator();
+			partyInit.desktop = desktop;
+
+            // Add party creator UI to the screen
+			desktop.Widgets.Add(partyInit.mainGrid);
 
 		}
 

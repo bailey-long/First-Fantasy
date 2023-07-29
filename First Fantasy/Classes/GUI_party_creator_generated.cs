@@ -2,23 +2,30 @@
 using System;
 using Microsoft.Xna.Framework;
 using System.Diagnostics;
+using MonoGame;
 
 namespace First_Fantasy.Classes
 {
-	public partial class GUI_party_creator: Game1
+	public partial class GUI_party_creator: Grid
 	{
+		public Desktop desktop { get; set; }
 		public GUI_party_creator()
 		{
 			UI_LoadContent();
 			finishButton.Click += (object sender, EventArgs e) =>
 			{
 				Debug.WriteLine("Clicked");
-				Exit();
 			};
 			editButton.Click += (object sender, EventArgs e) =>
 			{
+
 				int memberShown = partyList.SelectedIndex.GetValueOrDefault();
 				var displayed = Members[memberShown];
+
+				var creatorGrid = new Grid
+				{
+
+				};
 
 				if (displayed.Name == "EMPTY" || displayed.Class == "EMPTY")
 				{
@@ -117,7 +124,7 @@ namespace First_Fantasy.Classes
 						partyList.Items.Add(new ListItem($" {Members[1].Name}", Color.White));
 						partyList.Items.Add(new ListItem($" {Members[2].Name}", Color.White));
 						partyList.Items.Add(new ListItem($" {Members[3].Name}", Color.White));
-						grid.Widgets.Add(partyList);
+						mainGrid.Widgets.Add(partyList);
 
 					};
 
@@ -171,7 +178,7 @@ namespace First_Fantasy.Classes
 						partyList.Items.Add(new ListItem($" {Members[1].Name}", Color.White));
 						partyList.Items.Add(new ListItem($" {Members[2].Name}", Color.White));
 						partyList.Items.Add(new ListItem($" {Members[3].Name}", Color.White));
-						grid.Widgets.Add(partyList);
+						mainGrid.Widgets.Add(partyList);
 					};
 					charViewer.ShowModal(desktop);
 				}
