@@ -7,12 +7,17 @@ using Myra;
 using Myra.Graphics2D.UI;
 using System;
 using System.Diagnostics;
+using SharpDX.Direct3D9;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace First_Fantasy
 {
     public class Game1 : Game
     {
-        public GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
+		private ContentManager content;
+
+		public GraphicsDeviceManager graphics;
 		public Desktop desktop;
 
 		public Game1()
@@ -31,6 +36,8 @@ namespace First_Fantasy
         protected override void LoadContent()
         {
 			MyraEnvironment.Game = this;
+			spriteBatch = new SpriteBatch(GraphicsDevice);
+			content = new ContentManager(Content.ServiceProvider, Content.RootDirectory);
 
 			// Setup the desktop
 			desktop = new Desktop();
@@ -38,7 +45,13 @@ namespace First_Fantasy
             //Setup party creator UI
             GUI_party_creator partyInit = new() {
                 desktop = desktop,
+                contentManager = content,
                 startGame = Content.Load<SoundEffect>("Sounds/Unique/venture_forth"),
+                classSpriteOne = Content.Load<Texture2D>("Sprites/Classes/astral_weaver"),
+				classSpriteTwo = Content.Load<Texture2D>("Sprites/Classes/verdant_sentinal"),
+				classSpriteThree = Content.Load<Texture2D>("Sprites/Classes/steam_enforcer"),
+				classSpriteFour = Content.Load<Texture2D>("Sprites/Classes/echoblade"),
+				classSpriteFive = Content.Load<Texture2D>("Sprites/Classes/charlatan")
 			};
 
             Song menuTheme = Content.Load<Song>("Sounds/Unique/beggining");
@@ -62,6 +75,12 @@ namespace First_Fantasy
 			// Draw the GUI
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 			desktop.Render();
+
+            spriteBatch.Begin();
+            //Draw here
+            //sprite.Draw(spriteBatch);
+
+            spriteBatch.End();
 
 
 			base.Draw(gameTime);
