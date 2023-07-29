@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace First_Fantasy.Classes
 {
@@ -26,9 +27,10 @@ namespace First_Fantasy.Classes
 
 				messageBox.ButtonOk.Click += (object sender, EventArgs e) =>
 				{
+					//Change screen
 					desktop.Widgets.Remove(mainGrid);
 					startGame.Play();
-					MediaPlayer.Stop();
+					MediaPlayer.Stop();					
 				};
 			};
 			editButton.Click += (object sender, EventArgs e) =>

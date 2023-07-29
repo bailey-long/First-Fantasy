@@ -36,8 +36,8 @@ namespace First_Fantasy
 			desktop = new Desktop();
 
             //Setup party creator UI
-			GUI_party_creator partyInit = new() {
-				desktop = desktop,
+            GUI_party_creator partyInit = new() {
+                desktop = desktop,
                 startGame = Content.Load<SoundEffect>("Sounds/Unique/venture_forth"),
 			};
 
