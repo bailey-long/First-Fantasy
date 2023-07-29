@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Myra;
 using Myra.Graphics2D.UI;
+using System;
 
 namespace First_Fantasy
 {
@@ -30,7 +31,6 @@ namespace First_Fantasy
 			partyInit = new GUI_party_creator
 			{
 				partyGraphicsManager = graphics,
-				//partyDesktop = desktop
 			};
             
             // Add to the desktop
@@ -39,8 +39,6 @@ namespace First_Fantasy
 
 			partyInit.LoadContent(desktop);
 			partyInit.SubscribeEvents();
-
-			desktop.Root = partyInit.grid;
 
 		}
 

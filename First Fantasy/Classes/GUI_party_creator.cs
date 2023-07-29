@@ -88,6 +88,7 @@ namespace First_Fantasy.Classes
 
 			grid.Widgets.Add(finishButton);
 
+			desktop.Root = grid;
 		}
 		
 		public void SubscribeEvents()
