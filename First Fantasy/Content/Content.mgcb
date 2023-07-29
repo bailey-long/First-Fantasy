@@ -13,6 +13,18 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Sounds/Unique/beggining.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/Unique/beggining.mp3
+
+#begin Sounds/Unique/venture_forth.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Unique/venture_forth.wav
+
 #begin Sprites/Classes/astral_weaver.png
 /importer:TextureImporter
 /processor:TextureProcessor

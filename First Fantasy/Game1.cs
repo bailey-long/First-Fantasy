@@ -1,5 +1,8 @@
 ﻿using First_Fantasy.Classes;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Content;
 using Myra;
 using Myra.Graphics2D.UI;
 using System;
@@ -11,7 +14,6 @@ namespace First_Fantasy
     {
         public GraphicsDeviceManager graphics;
 		public Desktop desktop;
-        GUI_party_creator partyInit;
 
 		public Game1()
         {
@@ -28,25 +30,28 @@ namespace First_Fantasy
 
         protected override void LoadContent()
         {
-            base.LoadContent();
-
 			MyraEnvironment.Game = this;
 
 			// Setup the desktop
 			desktop = new Desktop();
 
             //Setup party creator UI
-			partyInit = new GUI_party_creator();
-			partyInit.desktop = desktop;
+			GUI_party_creator partyInit = new() {
+				desktop = desktop,
+                startGame = Content.Load<SoundEffect>("Sounds/Unique/venture_forth"),
+			};
 
-            // Add party creator UI to the screen
+            Song menuTheme = Content.Load<Song>("Sounds/Unique/beggining");
+			MediaPlayer.Play(menuTheme);
+			MediaPlayer.IsRepeating = true;
+
+			// Add UI to the screen
 			desktop.Widgets.Add(partyInit.mainGrid);
-
 		}
 
         protected override void Update(GameTime gameTime)
         {
-            // TODO: Add your update logic here
+            // Gets keyboard state; detects input
             Key.GetState();
 
 			base.Update(gameTime);
@@ -54,7 +59,7 @@ namespace First_Fantasy
 
         protected override void Draw(GameTime gameTime)
         {
-			// Draw the Myra GUI
+			// Draw the GUI
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 			desktop.Render();
 

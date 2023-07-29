@@ -1,17 +1,22 @@
 ﻿using Myra.Graphics2D.UI;
 using System;
-using Microsoft.Xna.Framework;
 using System.Diagnostics;
-using MonoGame;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework;
 
 namespace First_Fantasy.Classes
 {
 	public partial class GUI_party_creator: Grid
 	{
 		public Desktop desktop { get; set; }
+		public SoundEffect startGame { get; set; }
+
+
 		public GUI_party_creator()
 		{
 			UI_LoadContent();
+
 			finishButton.Click += (object sender, EventArgs e) =>
 			{
 				Debug.WriteLine("Clicked");
@@ -22,6 +27,8 @@ namespace First_Fantasy.Classes
 				messageBox.ButtonOk.Click += (object sender, EventArgs e) =>
 				{
 					desktop.Widgets.Remove(mainGrid);
+					startGame.Play();
+					MediaPlayer.Stop();
 				};
 			};
 			editButton.Click += (object sender, EventArgs e) =>
@@ -30,6 +37,7 @@ namespace First_Fantasy.Classes
 				int memberShown = partyList.SelectedIndex.GetValueOrDefault();
 				var displayed = Members[memberShown];
 
+				//If there is no character present display creation screen
 				if (displayed.Name == "EMPTY" || displayed.Class == "EMPTY")
 				{
 					//Fields for charatcer creator
