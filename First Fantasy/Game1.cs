@@ -14,7 +14,7 @@ namespace First_Fantasy
 
 		public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
+			graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 		}
@@ -23,22 +23,20 @@ namespace First_Fantasy
         {
             // TODO: Add your initialization logic here
             base.Initialize();
+
 		}
 
         protected override void LoadContent()
         {
 
-			partyInit = new GUI_party_creator
-			{
-				partyGraphicsManager = graphics,
-			};
-            
-            // Add to the desktop
-            MyraEnvironment.Game = this;
-			desktop = new Desktop();
+			MyraEnvironment.Game = this;
 
-			partyInit.LoadContent(desktop);
-			partyInit.SubscribeEvents();
+            partyInit = new GUI_party_creator();
+
+
+			// Add to the desktop
+			desktop = new Desktop();
+			desktop.Root = partyInit.grid;
 
 		}
 
@@ -52,11 +50,12 @@ namespace First_Fantasy
 
         protected override void Draw(GameTime gameTime)
         {
-            // Draw the Myra GUI
-            MyraEnvironment.GraphicsDevice.Clear(Color.CornflowerBlue);
+			// Draw the Myra GUI
+			GraphicsDevice.Clear(Color.CornflowerBlue);
 			desktop.Render();
 
-            base.Draw(gameTime);
+
+			base.Draw(gameTime);
         }
     }
 }
