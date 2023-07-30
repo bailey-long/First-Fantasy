@@ -55,6 +55,7 @@ namespace First_Fantasy
 			};
 
             Song menuTheme = Content.Load<Song>("Sounds/Unique/beggining");
+            MediaPlayer.Volume = 0.1f;
 			MediaPlayer.Play(menuTheme);
 			MediaPlayer.IsRepeating = true;
 

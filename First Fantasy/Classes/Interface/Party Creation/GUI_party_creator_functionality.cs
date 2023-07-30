@@ -148,23 +148,18 @@ namespace First_Fantasy.Classes
 						switch (displayed.Class.Trim())
 						{
 							case "Astral Weaver":
-								Debug.WriteLine("AW");
 								displayed.Sprite = classSpriteOne;
 								break;
 							case "Verdant Sentinal":
-								Debug.WriteLine("VS");
 								displayed.Sprite = classSpriteTwo;
 								break;
 							case "Steam Enforcer":
-								Debug.WriteLine("SE");
 								displayed.Sprite = classSpriteThree;
 								break;
 							case "Echoblade":
-								Debug.WriteLine("E");
 								displayed.Sprite = classSpriteFour;
 								break;
 							case "Charlatan":
-								Debug.WriteLine("C");
 								displayed.Sprite = classSpriteFive;
 								break;
 							default:

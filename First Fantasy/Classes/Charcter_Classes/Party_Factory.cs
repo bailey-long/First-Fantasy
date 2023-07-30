@@ -16,10 +16,10 @@ namespace First_Fantasy.Classes.Charcter_Classes
             //Generate test members
             Member member1 = new Member
             {
-                Name = "Gurt",
+                Name = "EMPTY",
                 Level = 1,
-                Race = "Dwarf",
-                Class = "Echoblade"
+                Race = "EMPTY",
+                Class = "EMPTY"
             };
             Member member2 = new Member
             {
