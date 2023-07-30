@@ -143,8 +143,9 @@ namespace First_Fantasy.Classes
 						displayed.Name = charName.Text;
 						displayed.Race = charRace.SelectedItem.ToString();
 						displayed.Class = charClass.SelectedItem.ToString();
-						Debug.WriteLine(displayed.Class);
-						switch (charClass.SelectedItem.ToString())
+
+						//Must be trimmed or nothing works dont know why
+						switch (displayed.Class.Trim())
 						{
 							case "Astral Weaver":
 								Debug.WriteLine("AW");
@@ -168,6 +169,7 @@ namespace First_Fantasy.Classes
 								break;
 							default:
 								Debug.WriteLine("Uh Oh");
+								Debug.WriteLine(displayed.Class);
 								break;
 						};
 						//Debug.WriteLine(displayed.Sprite);
