@@ -5,6 +5,9 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Myra.Graphics2D.TextureAtlases;
+using SharpDX.Direct3D9;
+using Microsoft.Xna.Framework.Content;
 
 namespace First_Fantasy.Classes
 {
@@ -12,11 +15,21 @@ namespace First_Fantasy.Classes
 	{
 		public Desktop desktop { get; set; }
 		public SoundEffect startGame { get; set; }
+		public ContentManager contentManager { get; set; }
+		
+		//Sprites
+		public Texture2D classSpriteOne { get; set; }
+		public Texture2D classSpriteTwo { get; set; }
+		public Texture2D classSpriteThree { get; set; }
+		public Texture2D classSpriteFour { get; set; }
+		public Texture2D classSpriteFive { get; set; }
 
+		private TextureRegion displayClass;
 
 		public GUI_party_creator()
 		{
 			UI_LoadContent();
+			this.contentManager = contentManager;
 
 			finishButton.Click += (object sender, EventArgs e) =>
 			{
@@ -130,6 +143,31 @@ namespace First_Fantasy.Classes
 						displayed.Name = charName.Text;
 						displayed.Race = charRace.SelectedItem.ToString();
 						displayed.Class = charClass.SelectedItem.ToString();
+
+						//Must be trimmed or nothing works dont know why
+						switch (displayed.Class.Trim())
+						{
+							case "Astral Weaver":
+								displayed.Sprite = classSpriteOne;
+								break;
+							case "Verdant Sentinal":
+								displayed.Sprite = classSpriteTwo;
+								break;
+							case "Steam Enforcer":
+								displayed.Sprite = classSpriteThree;
+								break;
+							case "Echoblade":
+								displayed.Sprite = classSpriteFour;
+								break;
+							case "Charlatan":
+								displayed.Sprite = classSpriteFive;
+								break;
+							default:
+								Debug.WriteLine("Uh Oh");
+								Debug.WriteLine(displayed.Class);
+								break;
+						};
+						//Debug.WriteLine(displayed.Sprite);
 						partyList.Items.Clear();
 						party.AddMember(displayed, memberShown);
 
@@ -145,6 +183,8 @@ namespace First_Fantasy.Classes
 				}
 				else
 				{
+					displayClass =  new TextureRegion(displayed.Sprite);
+
 					var raceLabel = new Label
 					{
 						GridColumn = 0,
@@ -166,6 +206,13 @@ namespace First_Fantasy.Classes
 						Text = $"Class: {displayed.Class}"
 					};
 
+					var playerSprite = new Image
+					{
+						GridColumn = 1,
+						GridRow = 1,
+						Renderable = displayClass
+					};
+
 					//Create window content
 					var stackPanel = new VerticalStackPanel
 					{
@@ -174,6 +221,7 @@ namespace First_Fantasy.Classes
 					stackPanel.Widgets.Add(raceLabel);
 					stackPanel.Widgets.Add(levelLabel);
 					stackPanel.Widgets.Add(classLabel);
+					stackPanel.Widgets.Add(playerSprite);
 
 					Dialog charViewer = new Dialog
 					{
