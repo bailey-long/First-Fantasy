@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace First_Fantasy.Classes.Charcter_Classes
 {
-    internal class Party
+    public class Party
     {
-        public List<Member> Members { get; private set; }
+        public List<Member> Members { get; set; }
         public Party()
         {
             Members = new List<Member>();

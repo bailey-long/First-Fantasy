@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using First_Fantasy.Classes.Charcter_Classes;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -13,11 +14,14 @@ namespace First_Fantasy.States.Setup
     {
         private ContentManager _content;
 
-        // Instance of the game state manager     
-        private static Game_State_Manager _instance;
+		// Instance of the game state manager     
+		private static Game_State_Manager _instance;
 
         // Stack for the screens     
         private Stack<Game_State> _screens = new Stack<Game_State>();
+
+        // Create party
+        public static Party party = new();
 
         public static Game_State_Manager Instance
         {

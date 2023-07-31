@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using Myra.Graphics2D.UI;
 using First_Fantasy.States.Setup;
+using First_Fantasy.Classes.Charcter_Classes;
 
 namespace First_Fantasy.States
 {
@@ -20,20 +21,21 @@ namespace First_Fantasy.States
         private ContentManager _content;
 
         public GraphicsDeviceManager graphics;
+        public static GraphicsDevice Graphics;
         public Desktop desktop;
 
-
-        public Party_Create_State(GraphicsDevice graphicsDevice)
+		public Party_Create_State(GraphicsDevice graphicsDevice)
       : base(graphicsDevice)
         {
 
-        }
-        public override void Initialize()
+		}
+
+		public override void Initialize()
         {
 
-        }
+		}
 
-        public override void LoadContent(ContentManager _content)
+		public override void LoadContent(ContentManager _content)
         {
             // Setup the desktop
             desktop = new Desktop();
@@ -56,8 +58,8 @@ namespace First_Fantasy.States
             MediaPlayer.Play(menuTheme);
             MediaPlayer.IsRepeating = true;
 
-            // Add UI to the screen
-            desktop.Widgets.Add(partyInit.mainGrid);
+			// Add UI to the screen
+			desktop.Widgets.Add(partyInit.partyCreatorGrid);
         }
 
         public override void UnloadContent()
@@ -73,7 +75,6 @@ namespace First_Fantasy.States
         public override void Draw(SpriteBatch spriteBatch)
         {
             desktop.Render();
-
         }
     }
 }

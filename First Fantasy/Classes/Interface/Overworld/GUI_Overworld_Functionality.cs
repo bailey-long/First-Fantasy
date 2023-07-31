@@ -14,14 +14,10 @@ namespace First_Fantasy.Classes.Interface.Overworld
 {
     partial class GUI_Overworld: Grid
     {
-        public Desktop desktop { get; set; }
-        public SoundEffect startGame { get; set; }
-        public ContentManager contentManager { get; set; }
 
         public GUI_Overworld()
         {
             UI_LoadContent();
-            this.contentManager = contentManager;
 
             //Add Widget Functionality
         }
