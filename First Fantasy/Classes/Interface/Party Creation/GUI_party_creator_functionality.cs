@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Myra.Graphics2D.TextureAtlases;
 using SharpDX.Direct3D9;
 using Microsoft.Xna.Framework.Content;
+using First_Fantasy.States;
 
 namespace First_Fantasy.Classes
 {
@@ -40,8 +41,8 @@ namespace First_Fantasy.Classes
 
 				messageBox.ButtonOk.Click += (object sender, EventArgs e) =>
 				{
-					//Change screen
-					desktop.Widgets.Remove(mainGrid);
+                    //Change screen
+                    Game_State_Manager.Instance.RemoveScreen();
 					startGame.Play();
 					MediaPlayer.Stop();					
 				};
