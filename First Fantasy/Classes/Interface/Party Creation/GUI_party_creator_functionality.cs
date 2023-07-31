@@ -8,11 +8,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Myra.Graphics2D.TextureAtlases;
 using SharpDX.Direct3D9;
 using Microsoft.Xna.Framework.Content;
-using First_Fantasy.States;
+using First_Fantasy.States.Setup;
 
 namespace First_Fantasy.Classes
 {
-	public partial class GUI_party_creator: Grid
+    public partial class GUI_party_creator: Grid
 	{
 		public Desktop desktop { get; set; }
 		public SoundEffect startGame { get; set; }

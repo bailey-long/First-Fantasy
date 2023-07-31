@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace First_Fantasy.States
+namespace First_Fantasy.States.Setup
 {
     public abstract class Game_State : IGame_State
     {

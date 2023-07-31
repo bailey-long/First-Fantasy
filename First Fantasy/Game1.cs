@@ -10,6 +10,7 @@ using System.Diagnostics;
 using SharpDX.Direct3D9;
 using Microsoft.Xna.Framework.Graphics;
 using First_Fantasy.States;
+using First_Fantasy.States.Setup;
 
 namespace First_Fantasy
 {

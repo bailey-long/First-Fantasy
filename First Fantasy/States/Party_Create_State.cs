@@ -10,6 +10,7 @@ using First_Fantasy.Classes;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using Myra.Graphics2D.UI;
+using First_Fantasy.States.Setup;
 
 namespace First_Fantasy.States
 {
@@ -61,7 +62,7 @@ namespace First_Fantasy.States
 
         public override void UnloadContent()
         {
-            Game_State_Manager.Instance.UnloadContent();
+
         }
 
         public override void Update(GameTime gameTime)

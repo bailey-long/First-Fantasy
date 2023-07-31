@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace First_Fantasy.States
+namespace First_Fantasy.States.Setup
 {
     internal interface IGame_State
     {
