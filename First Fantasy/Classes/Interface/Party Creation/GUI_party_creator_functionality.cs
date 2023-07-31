@@ -190,7 +190,7 @@ namespace First_Fantasy.Classes
 				}
 				else
 				{
-					displayClass =  new TextureRegion(displayed.Sprite);
+					displayClass = new TextureRegion(displayed.Sprite);
 
 					var raceLabel = new Label
 					{
