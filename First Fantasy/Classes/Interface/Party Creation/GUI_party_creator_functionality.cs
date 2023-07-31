@@ -32,6 +32,7 @@ namespace First_Fantasy.Classes
 			UI_LoadContent();
 			this.contentManager = contentManager;
 
+			//Add Widget Functionality
 			finishButton.Click += (object sender, EventArgs e) =>
 			{
 				Debug.WriteLine("Clicked");
