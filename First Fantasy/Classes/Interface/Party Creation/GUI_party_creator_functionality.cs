@@ -8,10 +8,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Myra.Graphics2D.TextureAtlases;
 using SharpDX.Direct3D9;
 using Microsoft.Xna.Framework.Content;
+using First_Fantasy.States.Setup;
 
 namespace First_Fantasy.Classes
 {
-	public partial class GUI_party_creator: Grid
+    public partial class GUI_party_creator: Grid
 	{
 		public Desktop desktop { get; set; }
 		public SoundEffect startGame { get; set; }
@@ -40,8 +41,8 @@ namespace First_Fantasy.Classes
 
 				messageBox.ButtonOk.Click += (object sender, EventArgs e) =>
 				{
-					//Change screen
-					desktop.Widgets.Remove(mainGrid);
+                    //Change screen
+                    Game_State_Manager.Instance.RemoveScreen();
 					startGame.Play();
 					MediaPlayer.Stop();					
 				};
