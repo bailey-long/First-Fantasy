@@ -9,6 +9,9 @@ using Myra.Graphics2D.TextureAtlases;
 using SharpDX.Direct3D9;
 using Microsoft.Xna.Framework.Content;
 using First_Fantasy.States.Setup;
+using First_Fantasy.States;
+using System.Collections.Generic;
+using First_Fantasy.Classes.Charcter_Classes;
 
 namespace First_Fantasy.Classes
 {
@@ -32,6 +35,7 @@ namespace First_Fantasy.Classes
 			UI_LoadContent();
 			this.contentManager = contentManager;
 
+			//Add Widget Functionality
 			finishButton.Click += (object sender, EventArgs e) =>
 			{
 				Debug.WriteLine("Clicked");
@@ -41,7 +45,9 @@ namespace First_Fantasy.Classes
 
 				messageBox.ButtonOk.Click += (object sender, EventArgs e) =>
 				{
-                    //Change screen
+					party.ShowMembers(Members);
+
+					//Change screen
                     Game_State_Manager.Instance.RemoveScreen();
 					startGame.Play();
 					MediaPlayer.Stop();					
@@ -176,7 +182,7 @@ namespace First_Fantasy.Classes
 						partyList.Items.Add(new ListItem($" {Members[1].Name}", Color.White));
 						partyList.Items.Add(new ListItem($" {Members[2].Name}", Color.White));
 						partyList.Items.Add(new ListItem($" {Members[3].Name}", Color.White));
-						mainGrid.Widgets.Add(partyList);
+						partyCreatorGrid.Widgets.Add(partyList);
 
 					};
 
@@ -240,7 +246,7 @@ namespace First_Fantasy.Classes
 						partyList.Items.Add(new ListItem($" {Members[1].Name}", Color.White));
 						partyList.Items.Add(new ListItem($" {Members[2].Name}", Color.White));
 						partyList.Items.Add(new ListItem($" {Members[3].Name}", Color.White));
-						mainGrid.Widgets.Add(partyList);
+						partyCreatorGrid.Widgets.Add(partyList);
 					};
 					charViewer.ShowModal(desktop);
 				}

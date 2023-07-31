@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace First_Fantasy.Classes.Charcter_Classes
 {
-    internal class Member
+    public class Member
     {
         public string Name { get; set; }
         public int Level { get; set; }

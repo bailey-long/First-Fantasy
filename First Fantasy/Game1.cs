@@ -11,10 +11,11 @@ using SharpDX.Direct3D9;
 using Microsoft.Xna.Framework.Graphics;
 using First_Fantasy.States;
 using First_Fantasy.States.Setup;
+using First_Fantasy.Classes.Charcter_Classes;
 
 namespace First_Fantasy
 {
-    public class Game1 : Game
+	public class Game1 : Game
     {
         private SpriteBatch spriteBatch;
         private ContentManager content;
@@ -22,7 +23,9 @@ namespace First_Fantasy
         public GraphicsDeviceManager graphics;
         public Desktop desktop;
 
-        public Game1()
+        public Party party = new();
+
+		public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -43,8 +46,9 @@ namespace First_Fantasy
 
             Game_State_Manager.Instance.SetContent(content);
 
-            //Load  States
-            Game_State_Manager.Instance.AddScreen(new Party_Create_State(GraphicsDevice));
+			//Load  States
+			Game_State_Manager.Instance.AddScreen(new Overworld_State(GraphicsDevice));
+			Game_State_Manager.Instance.AddScreen(new Party_Create_State(GraphicsDevice));
         }
         protected override void UnloadContent()
         {
