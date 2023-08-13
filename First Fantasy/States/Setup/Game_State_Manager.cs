@@ -120,17 +120,17 @@ namespace First_Fantasy.States.Setup
         // Renders the top screen.
         public void Draw(SpriteBatch spriteBatch)
         {
-            try
-            {
+           // try
+           // {
                 if (_screens.Count > 0)
                 {
                     _screens.Peek().Draw(spriteBatch);
                 }
-            }
-            catch (Exception ex)
-            {
+           // }
+           // catch (Exception ex)
+           // {
                 //_logger.Error(ex);
-            }
+            //}
         }
 
         // Unloads the content from the screen

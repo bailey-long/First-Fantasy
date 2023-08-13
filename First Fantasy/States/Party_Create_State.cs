@@ -17,7 +17,7 @@ namespace First_Fantasy.States
 {
     public class Party_Create_State : Game_State
     {
-        private SpriteBatch _spriteBatch;
+
         private ContentManager _content;
 
         public GraphicsDeviceManager graphics;
@@ -37,6 +37,7 @@ namespace First_Fantasy.States
 
 		public override void LoadContent(ContentManager _content)
         {
+
             // Setup the desktop
             desktop = new Desktop();
 
@@ -45,6 +46,7 @@ namespace First_Fantasy.States
             {
                 desktop = desktop,
                 contentManager = _content,
+                graphicsDevice = Graphics,
                 startGame = _content.Load<SoundEffect>("Sounds/Unique/venture_forth"),
                 classSpriteOne = _content.Load<Texture2D>("Sprites/Classes/astral_weaver"),
                 classSpriteTwo = _content.Load<Texture2D>("Sprites/Classes/verdant_sentinal"),
@@ -53,6 +55,7 @@ namespace First_Fantasy.States
                 classSpriteFive = _content.Load<Texture2D>("Sprites/Classes/charlatan")
             };
 
+            //Load media
             Song menuTheme = _content.Load<Song>("Sounds/Unique/beggining");
             MediaPlayer.Volume = 0.1f;
             MediaPlayer.Play(menuTheme);
