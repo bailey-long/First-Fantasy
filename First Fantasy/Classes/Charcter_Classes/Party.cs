@@ -16,7 +16,7 @@ namespace First_Fantasy.Classes.Charcter_Classes
             Members = new List<Member>();
         }
 
-        public void ShowMembers(List<Member> Members)
+        public void ShowMembers()
         {
             foreach (Member member in Members)
             {

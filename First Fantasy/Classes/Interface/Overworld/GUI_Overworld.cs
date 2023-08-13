@@ -1,10 +1,12 @@
 ﻿using First_Fantasy.Classes.Charcter_Classes;
 using First_Fantasy.States.Setup;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Myra.Graphics2D.TextureAtlases;
 using Myra.Graphics2D.UI;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,10 +16,12 @@ namespace First_Fantasy.Classes.Interface.Overworld
     partial class GUI_Overworld: Grid
     {
         private Party _party = Game_State_Manager.party;
+        public GraphicsDevice graphicsDevice { get; set; }
 
         public Grid overworldGrid;
         private void UI_LoadContent()
         {
+            _party.ShowMembers();
             overworldGrid = new Grid
             {
 				RowSpacing = 10,
@@ -34,13 +38,13 @@ namespace First_Fantasy.Classes.Interface.Overworld
 			};
             overworldGrid.Widgets.Add(helloWorld);
 
-           /*var partyDisplay = new Image
+           var partyDisplay = new Image
             {
 				GridColumn = 1,
 				GridRow = 1,
 				Renderable = new TextureRegion(_party.Members[0].Sprite)
             };
-            overworldGrid.Widgets.Add(partyDisplay);*/
+            overworldGrid.Widgets.Add(partyDisplay);
         }
     }
 }

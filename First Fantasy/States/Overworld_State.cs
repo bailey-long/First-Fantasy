@@ -24,12 +24,9 @@ namespace First_Fantasy.States
         private ContentManager _content;
 
         public GraphicsDeviceManager graphics;
+        public GraphicsDevice GraphicsDevice;
 		public Desktop desktop;
         public Party party = Game_State_Manager.party;
-
-        //Sprites
-        private Texture2D _partySprite;
-        private string _testString;
 
 		public Overworld_State(GraphicsDevice graphicsDevice)
       : base(graphicsDevice)
@@ -46,10 +43,11 @@ namespace First_Fantasy.States
         {
 			// Setup the desktop
 			desktop = new Desktop();
-            GUI_Overworld overworldInit = new();
+            GUI_Overworld overworldInit = new GUI_Overworld
+            {
+                graphicsDevice = GraphicsDevice
+            };
 
-            //Load Sprites
-            _partySprite = _content.Load<Texture2D>("Sprites/Classes/echoblade");
 
             // Add UI to the screen
             desktop.Widgets.Add(overworldInit.overworldGrid);
@@ -70,8 +68,6 @@ namespace First_Fantasy.States
 			desktop.Render();
 
             spriteBatch.Begin();
-
-            spriteBatch.Draw(_partySprite, new Vector2(100, 100), Color.White);
 
             spriteBatch.End();
 		}

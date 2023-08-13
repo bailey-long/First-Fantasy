@@ -20,6 +20,7 @@ namespace First_Fantasy.Classes
 		public Desktop desktop { get; set; }
 		public SoundEffect startGame { get; set; }
 		public ContentManager contentManager { get; set; }
+		public GraphicsDevice graphicsDevice { get; set; }
 		
 		//Sprites
 		public Texture2D classSpriteOne { get; set; }
@@ -45,13 +46,12 @@ namespace First_Fantasy.Classes
 
 				messageBox.ButtonOk.Click += (object sender, EventArgs e) =>
 				{
-					party.ShowMembers(Members);
-
-					//Change screen
+                    //Change screen
                     Game_State_Manager.Instance.RemoveScreen();
-					startGame.Play();
-					MediaPlayer.Stop();					
-				};
+                    startGame.Play();
+					MediaPlayer.Stop();
+                    Game_State_Manager.Instance.ChangeScreen(new Overworld_State(graphicsDevice));
+                };
 			};
 			editButton.Click += (object sender, EventArgs e) =>
 			{

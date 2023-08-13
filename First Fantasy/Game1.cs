@@ -44,11 +44,11 @@ namespace First_Fantasy
             spriteBatch = new SpriteBatch(GraphicsDevice);
             content = new ContentManager(Content.ServiceProvider, Content.RootDirectory);
 
+            //Setup game state manager
             Game_State_Manager.Instance.SetContent(content);
 
-			//Load  States
-			Game_State_Manager.Instance.AddScreen(new Overworld_State(GraphicsDevice));
-			Game_State_Manager.Instance.AddScreen(new Party_Create_State(GraphicsDevice));
+            //Load States
+            Game_State_Manager.Instance.ChangeScreen(new Party_Create_State(GraphicsDevice));
         }
         protected override void UnloadContent()
         {
