@@ -6,18 +6,18 @@ namespace First_Fantasy.Classes
 {
 	internal class sprite_class
 	{
-		public Vector2 Position;
-		private Texture2D texture { get; set; }
+		public Vector2 Position { get; set; }
+		public Texture2D Texture { get; set; }
 
 		// Constructor
-		public sprite_class(Texture2D texture)
+		public sprite_class(Texture2D Texture)
 		{
-			this.texture = texture;
+			this.Texture = Texture;
 		}
 
 		public void Draw(SpriteBatch sp)
 		{
-			sp.Draw(texture, Position, Color.White);
+			sp.Draw(Texture, Position, Color.White);
 		}
 	}
 

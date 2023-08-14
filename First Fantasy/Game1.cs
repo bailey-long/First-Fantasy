@@ -28,6 +28,8 @@ namespace First_Fantasy
 		public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 640;
+            graphics.PreferredBackBufferHeight = 380;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }

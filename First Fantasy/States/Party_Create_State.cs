@@ -21,7 +21,7 @@ namespace First_Fantasy.States
         private ContentManager _content;
 
         public GraphicsDeviceManager graphics;
-        public static GraphicsDevice Graphics;
+        public GraphicsDevice Graphics;
         public Desktop desktop;
 
 		public Party_Create_State(GraphicsDevice graphicsDevice)

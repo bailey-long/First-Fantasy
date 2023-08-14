@@ -21,6 +21,8 @@ namespace First_Fantasy.Classes.Interface.Overworld
         public Grid overworldGrid;
         private void UI_LoadContent()
         {
+
+            //TODO draw party with spritebatch rather than Myra in the state not the GUI
             _party.ShowMembers();
             overworldGrid = new Grid
             {
@@ -37,14 +39,6 @@ namespace First_Fantasy.Classes.Interface.Overworld
 				Text = "The Game: "
 			};
             overworldGrid.Widgets.Add(helloWorld);
-
-           var partyDisplay = new Image
-            {
-				GridColumn = 1,
-				GridRow = 1,
-				Renderable = new TextureRegion(_party.Members[0].Sprite)
-            };
-            overworldGrid.Widgets.Add(partyDisplay);
         }
     }
 }
